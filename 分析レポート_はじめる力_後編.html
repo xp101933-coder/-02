@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>動画戦略分析レポート | 【はじめる力】爆速で動けるチーム作り！</title>
+  <meta name="description" content="安野貴博「はじめる力」後編の動画戦略分析レポート。構成・ペルソナ・台本テンプレートを含む包括的分析。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a2e;
+      --bg-card-hover: #222240;
+      --bg-accent: rgba(99, 102, 241, 0.08);
+      --text-primary: #e8e8f0;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --accent-indigo: #818cf8;
+      --accent-violet: #a78bfa;
+      --accent-blue: #60a5fa;
+      --accent-emerald: #34d399;
+      --accent-rose: #fb7185;
+      --accent-amber: #fbbf24;
+      --accent-cyan: #22d3ee;
+      --gradient-main: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #f472b6 100%);
+      --gradient-card: linear-gradient(135deg, rgba(129, 140, 248, 0.1) 0%, rgba(167, 139, 250, 0.05) 100%);
+      --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.08) 100%);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-accent: rgba(129, 140, 248, 0.3);
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+      --shadow-glow: 0 0 40px rgba(129, 140, 248, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.8;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 800px 600px at 20% 10%, rgba(99, 102, 241, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 600px 500px at 80% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 500px 400px at 50% 50%, rgba(244, 114, 182, 0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 80px 0 48px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--gradient-subtle);
+      border: 1px solid var(--border-accent);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-indigo);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+      animation: fadeInDown 0.6s ease;
+    }
+
+    .hero-badge::before {
+      content: '📊';
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 900;
+      line-height: 1.3;
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-channel {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      font-size: 14px;
+      color: var(--text-secondary);
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .hero-channel strong {
+      color: var(--text-primary);
+    }
+
+    /* ===== META GRID ===== */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 32px 0 48px;
+      animation: fadeInUp 1.4s ease;
+    }
+
+    .meta-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .meta-item:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .meta-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .meta-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .meta-value.source {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-emerald);
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-main);
+      border-radius: var(--radius-sm);
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent-indigo);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--gradient-main);
+      border-radius: 2px;
+    }
+
+    .card p, .card li {
+      color: var(--text-secondary);
+      line-height: 1.9;
+    }
+
+    .card strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .card ul, .card ol {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+    }
+
+    .card li::marker {
+      color: var(--accent-indigo);
+    }
+
+    /* ===== HIGHLIGHT BOX ===== */
+    .highlight-box {
+      background: var(--gradient-subtle);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+
+    .highlight-box p {
+      color: var(--text-primary);
+      font-size: 15px;
+    }
+
+    /* ===== TABLES ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 16px 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead {
+      background: var(--gradient-subtle);
+    }
+
+    th {
+      padding: 14px 18px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--accent-indigo);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-bottom: 1px solid var(--border-accent);
+    }
+
+    td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    td strong {
+      color: var(--text-primary);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(129, 140, 248, 0.03);
+    }
+
+    /* ===== POWER WORD TAGS ===== */
+    .power-word {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      margin: 2px;
+    }
+
+    .pw-speed { background: rgba(251, 191, 36, 0.15); color: var(--accent-amber); border: 1px solid rgba(251, 191, 36, 0.3); }
+    .pw-trend { background: rgba(96, 165, 250, 0.15); color: var(--accent-blue); border: 1px solid rgba(96, 165, 250, 0.3); }
+    .pw-howto { background: rgba(52, 211, 153, 0.15); color: var(--accent-emerald); border: 1px solid rgba(52, 211, 153, 0.3); }
+    .pw-brand { background: rgba(167, 139, 250, 0.15); color: var(--accent-violet); border: 1px solid rgba(167, 139, 250, 0.3); }
+    .pw-series { background: rgba(251, 113, 133, 0.15); color: var(--accent-rose); border: 1px solid rgba(251, 113, 133, 0.3); }
+
+    /* ===== TRAFFIC ANALYSIS ===== */
+    .traffic-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .traffic-item:last-child { border-bottom: none; }
+
+    .traffic-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      min-width: 180px;
+      font-size: 14px;
+    }
+
+    .star-bar {
+      display: flex;
+      gap: 3px;
+      min-width: 90px;
+    }
+
+    .star {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      background: var(--border-subtle);
+      transition: all 0.3s ease;
+    }
+
+    .star.filled { background: var(--accent-amber); box-shadow: 0 0 8px rgba(251, 191, 36, 0.3); }
+
+    .traffic-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ===== TIMELINE ===== */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-indigo), var(--accent-violet), var(--accent-rose));
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 12px 0 24px 24px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 18px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-indigo);
+      border: 2px solid var(--bg-primary);
+      box-shadow: 0 0 12px rgba(129, 140, 248, 0.4);
+    }
+
+    .timeline-time {
+      font-family: 'Inter', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-indigo);
+      margin-bottom: 4px;
+    }
+
+    .timeline-content {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .timeline-content strong { color: var(--text-primary); }
+
+    .timeline-bar {
+      margin-top: 8px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--gradient-subtle);
+      overflow: hidden;
+    }
+
+    .timeline-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--gradient-main);
+      transition: width 1s ease;
+    }
+
+    /* ===== TEMPLATE BLOCK ===== */
+    .template-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: 16px 0;
+    }
+
+    .template-section {
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      transition: all 0.3s ease;
+    }
+
+    .template-section:last-child { border-bottom: none; }
+    .template-section:hover { background: rgba(129, 140, 248, 0.03); }
+
+    .template-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Inter', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(34, 211, 238, 0.1);
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .template-percent {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .template-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .template-label.method { color: var(--accent-indigo); }
+    .template-label.effect { color: var(--accent-emerald); }
+    .template-label.pattern { color: var(--accent-amber); }
+    .template-label.goal { color: var(--accent-rose); }
+
+    .template-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* ===== EVALUATION ===== */
+    .eval-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .eval-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .eval-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .eval-card.strength {
+      border-left: 3px solid var(--accent-emerald);
+    }
+
+    .eval-card.improve {
+      border-left: 3px solid var(--accent-amber);
+    }
+
+    .eval-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .eval-card.strength .eval-card-title { color: var(--accent-emerald); }
+    .eval-card.improve .eval-card-title { color: var(--accent-amber); }
+
+    .eval-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== TRANSFER TABLE ===== */
+    .transfer-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--gradient-main);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 48px;
+    }
+
+    .footer p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .footer a {
+      color: var(--accent-indigo);
+      text-decoration: none;
+    }
+
+    .footer a:hover { text-decoration: underline; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .container { padding: 0 16px; }
+      .hero { padding: 48px 0 32px; }
+      .card { padding: 20px; }
+      .traffic-item { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .traffic-label { min-width: unset; }
+      .eval-grid { grid-template-columns: 1fr; }
+      .meta-grid { grid-template-columns: repeat(2, 1fr); }
+      .template-section { padding: 18px 20px; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border-accent); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ===== HERO ===== -->
+    <header class="hero">
+      <div class="hero-badge">動画戦略分析レポート</div>
+      <h1>【はじめる力】<br>爆速で動けるチーム作り！<br>心理的安全性を確保するコツ【後編】</h1>
+      <p class="hero-subtitle">安野貴博が自著『はじめる力』の内容を基に、チームで「爆速で動く」ための3要素とリーダーシップ論、具体的なコミュニケーション術を解説する動画。</p>
+      <div class="hero-channel">
+        🎬 チャンネル：<strong>安野貴博の自由研究</strong>
+      </div>
+    </header>
+
+    <!-- ===== META ===== -->
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">再生回数</div>
+        <div class="meta-value">53,390</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">投稿日</div>
+        <div class="meta-value">2025/04/23</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">動画の長さ</div>
+        <div class="meta-value">20:57</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">情報ソース</div>
+        <div class="meta-value source">✅ 文字起こし＋概要欄</div>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 1: 内容要約 ===== -->
+    <section class="section animate-in">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <h2 class="section-title">動画の内容要約</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-title">主要ポイント</div>
+        <ol>
+          <li><strong>チーム文化の3要素</strong> — ① 心理的安全性の確保、② スピードに最適化する組織運営、③ ボトムアップで各メンバーが自律的に動く仕組み。都知事選の実体験を事例として具体的に紹介。</li>
+          <li><strong>これからの時代のリーダーシップ</strong> — 「リスクを取ること」「アジリティ（俊敏性）」「間違いを認めること」の3要素。従来の「カリスマ型・トップダウン型」リーダー像からの脱却を提唱。</li>
+          <li><strong>心理的安全性を高めるコミュニケーション術</strong> — 「期待値を下げる」「善意を前提にする」「意見の違いの"理由"に目を向ける」という即実践可能な3つのテクニック。</li>
+          <li><strong>都知事選という"実験場"からの学び</strong> — 理論だけでなく、都知事選挙を実際に戦ったチームの運営経験に基づくリアルな事例が説得力を担保。</li>
+          <li><strong>書籍『はじめる力』への導線</strong> — 動画コンテンツ自体が書籍の核心部分を「体験版」として提供し、購買意欲を自然に促進する設計。</li>
+        </ol>
+      </div>
+
+      <div class="highlight-box">
+        <p>💡 <strong>結論：</strong> 「はじめる」ためには個人の意志力だけでなく、チーム文化とコミュニケーションの技術が不可欠。本で詳しく学べるという形で書籍購入へのCTA（Call to Action）を設定。</p>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 2: 戦略・ペルソナ分析 ===== -->
+    <section class="section animate-in">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <h2 class="section-title">戦略・ペルソナ分析</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-title">ターゲット層の詳細分析</div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>分析軸</th><th>内容</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>年代・職業</strong></td>
+                <td>25〜40代のビジネスパーソン。特にリーダー・マネージャー層、スタートアップ創業者・メンバー、プロジェクトリーダー。副次的に就活生・若手社会人も含む。</td>
+              </tr>
+              <tr>
+                <td><strong>属性・背景</strong></td>
+                <td>「何かを始めたい」という意欲はあるが行動に移せていない層。テクノロジーやスタートアップに親和性が高く、安野貴博の都知事選での活動に関心を持つ有権者・政治テック層も含む。</td>
+              </tr>
+              <tr>
+                <td><strong>潜在的な悩み/欲求</strong></td>
+                <td>①チームの空気が重く、意見が出ない ②リーダーとして何を優先すべきか分からない ③「心理的安全性」という言葉は知っているが、具体的に何をすればいいかわからない ④行動したいが周囲の環境に阻まれている</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">パワーワード抽出</div>
+        <div style="margin-bottom:16px;">
+          <span class="power-word pw-speed">爆速</span>
+          <span class="power-word pw-trend">心理的安全性</span>
+          <span class="power-word pw-howto">コツ</span>
+          <span class="power-word pw-brand">【はじめる力】</span>
+          <span class="power-word pw-series">【後編】</span>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>パワーワード</th><th>訴求タイプ</th><th>効果</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="power-word pw-speed">爆速</span></td>
+                <td>スピード訴求・インパクト語</td>
+                <td>「早く結果が出る」期待感を生む。ビジネス系視聴者に刺さるワード</td>
+              </tr>
+              <tr>
+                <td><span class="power-word pw-trend">心理的安全性</span></td>
+                <td>専門用語（トレンドワード）</td>
+                <td>Google由来のバズワード。検索需要が高く、SEO的に強い</td>
+              </tr>
+              <tr>
+                <td><span class="power-word pw-howto">コツ</span></td>
+                <td>ハウツー訴求</td>
+                <td>「すぐ使えるテクニック」を期待させ、視聴の心理的ハードルを下げる</td>
+              </tr>
+              <tr>
+                <td><span class="power-word pw-brand">【はじめる力】</span></td>
+                <td>書籍名＝ブランド</td>
+                <td>シリーズ性を示し、前編視聴者の回遊を促す</td>
+              </tr>
+              <tr>
+                <td><span class="power-word pw-series">【後編】</span></td>
+                <td>連続性・完結訴求</td>
+                <td>前編既視聴者に「続きが見られる」と通知。新規には「前編もある」と示唆</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">流入経路の意図分析</div>
+        <div class="traffic-item">
+          <span class="traffic-label">SEO狙い（検索上位）</span>
+          <div class="star-bar">
+            <div class="star filled"></div>
+            <div class="star filled"></div>
+            <div class="star filled"></div>
+            <div class="star filled"></div>
+            <div class="star"></div>
+          </div>
+          <span class="traffic-desc">「心理的安全性」「チーム作り」は検索ボリュームのあるキーワード。チャプター情報がGoogle検索結果のキーモーメント表示に有利</span>
+        </div>
+        <div class="traffic-item">
+          <span class="traffic-label">クリック率狙い（関連動画）</span>
+          <div class="star-bar">
+            <div class="star filled"></div>
+            <div class="star filled"></div>
+            <div class="star filled"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <span class="traffic-desc">「爆速」「コツ」が関連動画一覧で目を引く。前編からの自動再生・関連動画での流入を設計</span>
+        </div>
+        <div class="traffic-item">
+          <span class="traffic-label">チャンネル回遊</span>
+          <div class="star-bar">
+            <div class="star filled"></div>
+            <div class="star filled"></div>
+            <div class="star filled"></div>
+            <div class="star filled"></div>
+            <div class="star filled"></div>
+          </div>
+          <span class="traffic-desc">前後編構成で視聴時間の最大化。安野貴博のチャンネル既存視聴者が主要ターゲット</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">競争性・差別化</div>
+        <ul>
+          <li>「心理的安全性」解説動画は多数存在するが、<strong>都知事選という実体験に基づく事例</strong>は唯一無二の差別化要素</li>
+          <li>エンジニア＆起業家＆SF作家＆元都知事選候補という<strong>多面的な権威性</strong>が競合との訴求角度を完全に差別化</li>
+          <li>書籍プロモーションでありながら「無料で核心部分を見せる」スタイルが<strong>信頼構築</strong>に寄与</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 3: 動画構成の分析 ===== -->
+    <section class="section animate-in">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <h2 class="section-title">動画構成の分析（編集者向け）</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-title">構成パターン</div>
+        <div class="highlight-box">
+          <p><strong>「教育・ノウハウ解説型」＋「実体験ケーススタディ型」のハイブリッド</strong></p>
+          <p style="margin-top:8px;font-size:14px;">理論を提示 → 自身の実体験（都知事選）で具体化 → 実践テクニック提示、という3段構成。</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">タイムライン構成</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-time">0:00 – 1:34　<span style="color:var(--text-muted);font-weight:400;">約1.5分</span></div>
+            <div class="timeline-content"><strong>導入・前編おさらい＆後編テーマ提示</strong></div>
+            <div class="timeline-bar"><div class="timeline-bar-fill" style="width:7%"></div></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">1:35 – 8:03　<span style="color:var(--text-muted);font-weight:400;">約6.5分</span></div>
+            <div class="timeline-content"><strong>ステップ3：チーム文化の3要素</strong> — 都知事選事例</div>
+            <div class="timeline-bar"><div class="timeline-bar-fill" style="width:31%"></div></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">8:04 – 12:05　<span style="color:var(--text-muted);font-weight:400;">約4分</span></div>
+            <div class="timeline-content"><strong>これからの時代のリーダーシップ論</strong></div>
+            <div class="timeline-bar"><div class="timeline-bar-fill" style="width:19%"></div></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">12:06 – 19:01　<span style="color:var(--text-muted);font-weight:400;">約7分</span></div>
+            <div class="timeline-content"><strong>実践！心理的安全性コミュニケーション術</strong></div>
+            <div class="timeline-bar"><div class="timeline-bar-fill" style="width:34%"></div></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">19:02 – 20:57　<span style="color:var(--text-muted);font-weight:400;">約2分</span></div>
+            <div class="timeline-content"><strong>まとめ＋書籍CTA</strong></div>
+            <div class="timeline-bar"><div class="timeline-bar-fill" style="width:9%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">冒頭のフック分析</div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>分析項目</th><th>内容</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>フックの手法</strong></td>
+                <td><strong>前編の振り返り＋後編提示型</strong> — 「前回は〇〇について話しました。今日は3つ目の...」と、前編視聴者には連続性を、新規視聴者には概要を提供。穏やかだがスムーズに本題に入る。</td>
+              </tr>
+              <tr>
+                <td><strong>離脱防止の工夫</strong></td>
+                <td>① チャプター表示で「自分の知りたいパートに飛べる」安心感 ② 「都知事選の事例」という固有のフック（好奇心刺激） ③ 「心理的安全性のコツ」という具体的メリット提示</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">尺とテンポの分析</div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>分析項目</th><th>評価</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>情報密度</strong></td>
+                <td><strong>中〜高密度（教育・ノウハウ系）</strong> — 概念説明→事例→テクニックの3層構造で情報を段階的に提供。一つのセクションに2〜3個の要点を含む。</td>
+              </tr>
+              <tr>
+                <td><strong>進行スピード</strong></td>
+                <td><strong>中速（落ち着いたトーク型）</strong> — 一人語りのセミナー形式。カット割りは少なめ。安野氏の知的で明瞭な話し方がテンポを作る。</td>
+              </tr>
+              <tr>
+                <td><strong>各セクションのバランス</strong></td>
+                <td>均整の取れた配分。実践パート（コミュニケーション術）に最も尺を割き、視聴者が「見て良かった」と感じる具体的価値を後半に配置。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 4: 台本テンプレート ===== -->
+    <section class="section animate-in">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <h2 class="section-title">再利用可能な台本テンプレート</h2>
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="padding:20px 28px;background:var(--gradient-subtle);border-bottom:1px solid var(--border-accent);">
+          <div class="card-title" style="margin-bottom:0;">教育ハイブリッド型（理論×実体験×実践）</div>
+        </div>
+      </div>
+
+      <div class="template-block">
+        <!-- 導入部 -->
+        <div class="template-section">
+          <div class="template-time">0:00 – 1:30　導入部 <span class="template-percent">≒ 全体の7%</span></div>
+          <div class="template-label method">🎯 手法</div>
+          <p class="template-text">前回の振り返り or 今回のテーマの問題提起で始める。<br>「〇〇で悩んでいませんか？ 今日は解決策をお話しします」<br>またはシリーズの場合「前回は△△でした。今日は核心の□□です」</p>
+          <div style="height:12px;"></div>
+          <div class="template-label effect">✨ 効果</div>
+          <p class="template-text">① 既存視聴者に連続視聴のインセンティブを提供<br>② 新規視聴者に「この動画を見るメリット」を即座に理解させる<br>③ チャプター表示で「欲しい情報がある」安心感を与え離脱を防止</p>
+        </div>
+
+        <!-- 前半 -->
+        <div class="template-section">
+          <div class="template-time">1:30 – 8:00　前半・概念提示＋実体験 <span class="template-percent">≒ 全体の30%</span></div>
+          <div class="template-label method">🎯 構成</div>
+          <p class="template-text">① まず核心概念を3つ程度のポイントに分解して説明<br>② 各ポイントを「自分の実体験」や「具体的なケーススタディ」で肉付け<br>③ 「一般論→自分はこうだった→だからこう言える」の三段論法</p>
+          <div style="height:12px;"></div>
+          <div class="template-label effect">✨ 効果</div>
+          <p class="template-text">① 抽象論ではなく体験談にすることで信頼性が桁違いに上がる<br>② 「この人は実際にやった人だ」という権威が構築される<br>③ ストーリーとして聞けるので、視聴者が飽きにくい</p>
+        </div>
+
+        <!-- 中盤 -->
+        <div class="template-section">
+          <div class="template-time">8:00 – 12:00　中盤・上位概念/マインドセット <span class="template-percent">≒ 全体の20%</span></div>
+          <div class="template-label pattern">📐 パターン</div>
+          <p class="template-text">具体的テクニックの前に「考え方のフレームワーク」を提示<br>「テクニックよりも大事なのは、そもそもの考え方です」<br>3要素を提示し、それぞれを1〜2分で端的に解説</p>
+          <div style="height:12px;"></div>
+          <div class="template-label effect">✨ 効果</div>
+          <p class="template-text">① ハウツーだけでなく「考え方の転換」を提供 → 動画の付加価値が上がる<br>② 視聴者が「自分の状況に当てはめて考える」思考を促進<br>③ 本題（実践テクニック）への期待値を高めるブリッジ</p>
+        </div>
+
+        <!-- 後半 -->
+        <div class="template-section">
+          <div class="template-time">12:00 – 19:00　後半・具体的実践テクニック <span class="template-percent">≒ 全体の35%</span></div>
+          <div class="template-label pattern">📐 パターン</div>
+          <p class="template-text">「明日からすぐに使える」3つの具体テクニックを順番に解説<br>各テクニック ≒ 2〜3分<br>テクニック → 理由 → 具体例 → 効果 の順で一つずつ完結させる</p>
+          <div style="height:12px;"></div>
+          <div class="template-label effect">✨ 効果</div>
+          <p class="template-text">① 「この動画を見て良かった」のピークをここに作る<br>② 即実践可能な内容にすることで、動画の「実用性」が評価に直結<br>③ 3つという数が記憶に残りやすく、共有・引用されやすい</p>
+        </div>
+
+        <!-- まとめ -->
+        <div class="template-section">
+          <div class="template-time">19:00 – 21:00　まとめ＋CTA <span class="template-percent">≒ 全体の8%</span></div>
+          <div class="template-label goal">🎯 ゴール</div>
+          <p class="template-text">① 本日の要点を30秒で再確認<br>② 「もっと詳しく知りたい方は書籍/次回動画へ」と次のアクション提示<br>③ チャンネル登録・高評価・コメントの促し</p>
+          <div style="height:12px;"></div>
+          <div class="template-label effect">✨ 効果</div>
+          <p class="template-text">① 視聴完了率を高める（「まとめがある」と分かれば最後まで見る）<br>② 書籍・次回動画への自然な導線（押し付け感のないCTA）<br>③ エンゲージメント指標の向上</p>
+        </div>
+      </div>
+
+      <!-- 転用例 -->
+      <div class="card">
+        <div class="card-title">別テーマへの転用例</div>
+        <p style="margin-bottom:16px;font-size:14px;"><strong>元の動画テーマ：</strong> チームビルディング × 心理的安全性 × リーダーシップ</p>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>#</th><th>転用テーマ</th><th>転用方法</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><span class="transfer-num">1</span></td>
+                <td><strong>副業・フリーランスの<br>チーム構築</strong></td>
+                <td>「一人で副業やってるけど限界を感じている人へ。外注チームを爆速で動かす心理的安全性の作り方」— 概念をフリーランスの外注管理に置き換え、実体験を「初めてチームを組んだ時の失敗談」に差し替え</td>
+              </tr>
+              <tr>
+                <td><span class="transfer-num">2</span></td>
+                <td><strong>子育て・家庭内<br>コミュニケーション</strong></td>
+                <td>「家族の"心理的安全性"を高めれば、子どもは自分から動き出す」— リーダーシップ3要素を「親の役割」に変換。コミュニケーション術をそのまま家庭版に翻訳</td>
+              </tr>
+              <tr>
+                <td><span class="transfer-num">3</span></td>
+                <td><strong>英語学習・語学習得の<br>マインドセット</strong></td>
+                <td>「英語が話せるようになる人のチーム学習術。心理的安全性がある学習環境の作り方」— 「間違いを認める」「期待値を下げる」がそのまま語学学習の挫折防止に直結</td>
+              </tr>
+              <tr>
+                <td><span class="transfer-num">4</span></td>
+                <td><strong>部活動・アマチュア<br>スポーツのチーム運営</strong></td>
+                <td>「強いチームは"雰囲気"が違う。部活の心理的安全性を高める3つのコツ」— 都知事選の事例を「全国大会出場チームの事例」に差し替え</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 5: 総合評価 ===== -->
+    <section class="section animate-in">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <h2 class="section-title">総合評価 &amp; 制作者への提言</h2>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;color:var(--accent-emerald);margin-bottom:16px;">✅ この動画の強み（再現すべき要素）</h3>
+      <div class="eval-grid" style="margin-bottom:32px;">
+        <div class="eval-card strength">
+          <div class="eval-card-title">唯一無二の実体験</div>
+          <p>「本で読んだ知識」ではなく「自分がやった結果」を語る。体験がない場合は徹底的な取材・インタビューで代替。</p>
+        </div>
+        <div class="eval-card strength">
+          <div class="eval-card-title">3ポイント構成の明快さ</div>
+          <p>各セクションで「3つの要素」「3つのテクニック」と、覚えやすい構造を徹底。視聴者の認知負荷を下げる。</p>
+        </div>
+        <div class="eval-card strength">
+          <div class="eval-card-title">押し付けないCTA</div>
+          <p>書籍への導線が自然。「宣伝です」ではなく「もっと知りたい方はこちら」の姿勢。</p>
+        </div>
+        <div class="eval-card strength">
+          <div class="eval-card-title">知的権威×親しみやすさ</div>
+          <p>東大・BCG・AI起業・都知事選という圧倒的権威を持ちながら、穏やかなトーンで話す。このギャップが信頼を生む。</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;color:var(--accent-amber);margin-bottom:16px;">⚠️ 改善余地（さらに伸ばすなら）</h3>
+      <div class="eval-grid">
+        <div class="eval-card improve">
+          <div class="eval-card-title">冒頭フックの強化</div>
+          <p>前編からの連続視聴前提のため、新規視聴者への引きが弱い。冒頭10秒に「この動画で得られる最大のメリット」を明示するアバンを追加。</p>
+        </div>
+        <div class="eval-card improve">
+          <div class="eval-card-title">視覚的な情報提示</div>
+          <p>テロップ・図解・アニメーションを増やし、「3つのポイント」を視覚的に印象づける。</p>
+        </div>
+        <div class="eval-card improve">
+          <div class="eval-card-title">エンゲージメント設計</div>
+          <p>「あなたのチームはどうですか？コメントで教えてください」等の双方向コミュニケーション促進。</p>
+        </div>
+        <div class="eval-card improve">
+          <div class="eval-card-title">サムネイル訴求力</div>
+          <p>「心理的安全性」だけでは弱い。「Googleが証明した最強チームの秘密」等、より好奇心を刺激するコピーの検討。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <p>分析日: 2026-02-16</p>
+      <p>分析対象: <a href="https://www.youtube.com/watch?v=e-VuDVlFoxU" target="_blank" rel="noopener">https://www.youtube.com/watch?v=e-VuDVlFoxU</a></p>
+      <p>分析者: 動画戦略コンサルタントAI</p>
+    </footer>
+  </div>
+
+  <script>
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+    // Animate timeline bars on scroll
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bar = entry.target.querySelector('.timeline-bar-fill');
+          if (bar) {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                bar.style.width = width;
+              });
+            });
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.timeline-item').forEach(el => timelineObserver.observe(el));
+  </script>
+</body>
+</html>

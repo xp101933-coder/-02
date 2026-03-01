@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube動画戦略分析AI</title>
+    <meta name="description" content="YouTubeのURLを入力するだけで、ヒット動画の戦略・構成・ペルソナ分析レポートをAIが自動生成します。">
+
+    <!-- OGP / SNS Share Settings -->
+    <meta property="og:title" content="YouTube動画戦略分析AI" />
+    <meta property="og:description" content="YouTube URLを入力するだけで、ヒット動画の設計図を自動生成。戦略・構成・ペルソナをAIが徹底分析。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com" />
+    <meta property="og:image" content="https://example.com/ogp.png" />
+    <meta property="og:site_name" content="YouTube動画戦略分析AI" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://example.com/ogp.png" />
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="ogp.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "@ffmpeg/ffmpeg": "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/esm/index.js",
+            "@ffmpeg/util": "https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.1/dist/esm/index.js"
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <!-- API Key Modal -->
+    <div id="apiKeyModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>Gemini APIキー設定</h3>
+            <p>Gemini APIキーを入力してください。キーはブラウザのlocalStorageに保存され、外部には送信されません。</p>
+            <input type="password" id="apiKeyInput" placeholder="AIzaSy..." />
+            <div class="modal-actions">
+                <button onclick="saveApiKey()" class="btn-primary">保存</button>
+                <button onclick="closeModal()" class="btn-secondary">キャンセル</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="container">
+        <!-- Hero / Input Screen -->
+        <div id="heroScreen">
+            <header class="app-header">
+                <div class="logo">動画戦略分析AI</div>
+                <button onclick="openModal()" class="settings-btn" title="APIキー設定">&#9881;</button>
+            </header>
+            <div class="hero-content">
+                <h1>動画を<br><span class="gradient-text">戦略的に分析</span></h1>
+                <p class="hero-desc">URLを入力、または動画ファイルをアップロードして分析</p>
+
+                <!-- Tab Bar -->
+                <div class="tab-bar">
+                    <button class="tab-btn active" onclick="switchTab('youtube')" id="tabYoutube">YouTube URL</button>
+                    <button class="tab-btn" onclick="switchTab('upload')" id="tabUpload">動画ファイル</button>
+                </div>
+
+                <!-- YouTube URL Tab -->
+                <div id="tabContentYoutube" class="tab-content">
+                    <div class="input-wrapper">
+                        <div class="input-glow"></div>
+                        <input type="url" id="urlInput" placeholder="YouTube URLを貼り付け..." />
+                        <button onclick="startAnalysis()" id="analyzeBtn" class="analyze-btn">分析開始</button>
+                    </div>
+                </div>
+
+                <!-- File Upload Tab -->
+                <div id="tabContentUpload" class="tab-content" style="display:none;">
+                    <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                        <div class="drop-zone-icon">&#128193;</div>
+                        <p class="drop-zone-text">動画ファイルをドラッグ&ドロップ<br>またはクリックして選択</p>
+                        <p class="drop-zone-formats">MP4, MOV, AVI, WebM, MKV 対応</p>
+                        <input type="file" id="fileInput" accept="video/*" style="display:none;" onchange="onFileSelected(event)" />
+                    </div>
+                    <div id="fileInfo" class="file-info" style="display:none;">
+                        <div class="file-info-left">
+                            <span class="file-info-name" id="fileName"></span>
+                            <span class="file-info-size" id="fileSize"></span>
+                        </div>
+                        <button class="file-info-remove" onclick="clearFileSelection()" title="取り消し">&#10005;</button>
+                    </div>
+                    <div id="compressNotice" class="compress-notice" style="display:none;">
+                        ⚠️ このファイルは2GBを超えています。Gemini File APIの上限は2GBのため、外部ツール（<a href="https://handbrake.fr/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">HandBrake</a>等）で圧縮してからアップロードしてください。
+                    </div>
+                    <button onclick="startFileAnalysis()" id="fileAnalyzeBtn" class="file-analyze-btn" disabled>分析開始</button>
+                </div>
+
+                <div id="inputError" class="input-error" style="display:none;"></div>
+            </div>
+            <!-- History -->
+            <div id="historySection" class="history-section" style="display:none;">
+                <h3>分析履歴</h3>
+                <div id="historyList" class="history-list"></div>
+            </div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div id="loadingScreen" style="display:none;">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <h2>分析中...</h2>
+
+                <!-- YouTube Loading Steps -->
+                <div id="youtubeSteps" class="loading-steps">
+                    <div class="step" id="step1"><span class="step-icon"></span> 動画情報を取得中</div>
+                    <div class="step" id="step2"><span class="step-icon"></span> AIが動画を分析中</div>
+                    <div class="step" id="step3"><span class="step-icon"></span> レポートを生成中</div>
+                </div>
+
+                <!-- File Upload Loading Steps -->
+                <div id="uploadSteps" class="loading-steps" style="display:none;">
+                    <div class="step" id="ustep1"><span class="step-icon"></span> 動画を準備中</div>
+                    <div class="step" id="ustep2"><span class="step-icon"></span> 動画を圧縮中</div>
+                    <div class="step" id="ustep3"><span class="step-icon"></span> Geminiにアップロード中</div>
+                    <div class="step" id="ustep4"><span class="step-icon"></span> 動画を処理中</div>
+                    <div class="step" id="ustep5"><span class="step-icon"></span> AIが分析・レポート生成中</div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="progressContainer" class="progress-container" style="display:none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+                    </div>
+                    <div class="progress-text" id="progressText"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Screen -->
+        <div id="reportScreen" style="display:none;">
+            <div class="report-header">
+                <button onclick="goHome()" class="back-btn">&larr; 新しい分析</button>
+            </div>
+            <div id="reportContent"></div>
+        </div>
+    </div>
+
+    <script>window.coi = { coepCredentialless: () => true };</script>
+    <script src="coi-serviceworker.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
